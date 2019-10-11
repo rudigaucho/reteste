@@ -215,9 +215,12 @@ function fnExcelReport() {
                     <th>Protocolo</th>
                     <th>Ccto</th>
                     <th>Cliente</th>
+                    <th>Localidade</th>
+                    <th>Estação</th>
                     <th>Téc</th>
                     <th>Ga</th>
                     <th>Data cad.</th>
+                    <th>Enviado por</th>
                     <th>Contato</th>
                     <th>Reteste</th>
                     
@@ -237,14 +240,14 @@ $data = $_POST['date'];
 if ($_SESSION['acesso'] == 'TEC')
 {
 
-$sql = mysql_query ("select * from cliente join reteste  on cliente.protocolo = reteste.protocolo where   cliente.id_tec = '".$_SESSION['id']."' and data_ult_ret = '$data' order by cliente.cliente" );
+$sql = mysql_query ("select * from cliente join reteste  on cliente.protocolo = reteste.protocolo where  localidade  = '".$_SESSION['localidade']."' OR id_tec = '".$_SESSION['id']."' and data_ult_ret = '$data' order by cliente.cliente" );
 }
 if ($_SESSION['acesso'] == 'GA')
 {
-    $sql = mysql_query ("select * from cliente join reteste  on cliente.protocolo = reteste.protocolo where   cliente.id_ga = '".$_SESSION['id']."' and data_ult_ret = '$data' order by cliente.nome_tec" );
+    $sql = mysql_query ("select * from cliente join reteste  on cliente.protocolo = reteste.protocolo where  localidade  = '".$_SESSION['localidade']."' and data_ult_ret = '$data' order by cliente.nome_tec" );
 
 }
-if ($_SESSION['acesso'] == 'GO')
+if ($_SESSION['acesso'] == 'GO' OR $_SESSION['acesso'] == 'ADM' )
 {
  
   $sql = mysql_query ("select * from cliente join reteste  on cliente.protocolo = reteste.protocolo where data_ult_ret =  '$data'   order by cliente.nome_ga" );
@@ -275,9 +278,12 @@ if ($_SESSION['acesso'] == 'GO')
                     <td><?php echo $dado ["protocolo"];  ?></td>
                     <td><?php echo $dado ["ccto"];  ?></td>
                     <td><?php echo $dado ["cliente"];  ?></td>
+                    <td><?php echo $dado ["localidade"];  ?></td>
+                    <td><?php echo $dado ["estacao"];  ?></td>
                     <td><?php echo $dado ["nome_tec"];  ?></td>
                     <td><?php echo $dado ["nome_ga"];  ?></td>
                     <td><?php echo $dado ["data_rep"];  ?></td>
+                    <td><?php echo current( str_word_count( $dado ["cad_por"] , 2 ) );  ?></td>
                     <td><?php echo $dado ["contato"];  ?></td>
                     <td><?php echo $dado ["descricao"];  ?></td>
 

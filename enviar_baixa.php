@@ -23,16 +23,7 @@ if(!isset($_SESSION["login"]) &&  !isset($_SESSION["senha"]) )
 
 
 
-<script type="text/javascript">
-function saidasuccessfully()
-{
-	setTimeout("window.location='dashboard.php'",7000);
-	
-	
-}
-
-
-</script> 
+ 
 
 <?php
 
@@ -68,7 +59,7 @@ session_start();
 <script type="text/javascript">
 function saidasuccessfully()
 {
-	setTimeout("window.location='dashboard.php'",3000);
+	setTimeout("window.location='table-pendencias.php'",3000);
 	
 	
 }
@@ -118,9 +109,9 @@ $desc  =$_POST['desc'];
 
 
 $query = "update  cliente set data_ult_ret = NOW()  where protocolo = '$protocolo'";
-$query2 = "insert into reteste (protocolo,data_ret,contato,descricao)";
+$query2 = "insert into reteste (protocolo,data_ret,contato,descricao,cad_por)";
 
-$query2.= "values ('$protocolo',NOW(),'$contato','$desc')";
+$query2.= "values ('$protocolo',NOW(),'$contato','$desc','".$_SESSION['nome']."')";
  
 
 

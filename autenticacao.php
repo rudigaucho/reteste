@@ -87,7 +87,8 @@ if($row > 0  )
 	$area = $linha['area'];
     $uf = $linha['uf'];
     $id_ga = $linha['id_ga'];
-    $nome_ga = $linha['nome_ga'];
+	$nome_ga = $linha['nome_ga'];
+	$localidade = $linha['localidade'];
     
 	
 	
@@ -104,6 +105,7 @@ if($row > 0  )
 	$_SESSION['id_ga'] =$id_ga;
 	$_SESSION['nome_ga'] =$nome_ga;
 	$_SESSION['uf'] =$uf;
+	$_SESSION['localidade'] =$localidade;
 	
 	
 	

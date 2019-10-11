@@ -10,7 +10,14 @@
             }
 
 
-           
+            
+
+
+
+
+
+
+
 
 
 ?>
@@ -23,24 +30,8 @@
 
   <link rel="icon" href="img/serede.png">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
-
-
-  
-<style>
-  #loading
-{
-  
-width:70px;
-height:70px;  
   
   
-  
-  
-}
-</style>
 
 
 
@@ -118,16 +109,16 @@ height:70px;
             <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
             <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
             <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
-          
-           
-           
           </ul>
         </li>
+        
+        
+        
     </aside>
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-edit"></i> Registro Reteste</h1>
+          <h1><i class="fa fa-upload"></i> Reteste</h1>
           <p></p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -140,81 +131,34 @@ height:70px;
         <div class="col-md-12">
           <div class="tile">
             <div class="row">
-              <div class="col-lg-6">
-                <form method="post"  action="enviar_cad.php ">
+              <div class="col-lg-12">
+                <form method="post" enctype="multipart/form-data" >
+
+
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Ccto</label>
-                    <input class="form-control" id="exampleInputEmail1"  name="ccto"  type="text" aria-describedby="emailHelp" >
+
+                  <?php
+                       include("import_csv.php");
+                       $csv = new csv();
+                       if ( isset($_POST['sub']))
+                       {
+                       
+                            $csv->import($_FILES['file']['tmp_name']);
+                            //var_dump($_FILES['file']);
+                            break;
+
+                       }
+                       
+
+                  ?>
+                    <label for="exampleInputFile">Base</label>
+                <input class="form-control-file" id="foto" name="file" type="file" aria-describedby="fileHelp"><small class="form-text text-muted" id="fileHelp"><strong>ATENÇÃO </strong><br> PASSO A PASSO PARA SUBIR BASE EM CSV <br><br>1º Seguir a planilha base espelhada no banco de dados <br>2º Converter data para formato americano <br>3º Remover cabeçalho <br>4º Salvar a planilha em formato csv separado por vírgulas <br></small>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Cliente</label>
-                    <input class="form-control"  id="exampleInputEmail1" name="cliente" v type="text" aria-describedby="emailHelp" >
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Data do Repetido</label>
-                                          <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
-                              <!--Font Awesome (added because you use icons in your prepend/append)-->
-                              <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-
-                              <!-- Inline CSS based on choices in "Settings" tab -->
-                              <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-
-                              <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-                              <div class="bootstrap-iso">
-
-                                <div class="row">
-
-
-                                  <div class="form-group ">
-
-                                    <div class="col-sm-10">
-                                      <div class="input-group">
-                                        <div class="input-group-addon">
-                                          <i class="fa fa-calendar">
-                                          </i>
-                                        </div>
-                                        <input class="form-control"  name="date" autocomplete="off" placeholder="DD/MM/AAAA" type="text" />
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-
-                                </div>
-
-                              </div>
-
-
-                              <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
-                              <!-- Include jQuery -->
-                              
-
-                              <!-- Include Date Range Picker -->
-                              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-
-                              <script>
-                                $(document).ready(function(){
-                        var date_input=$('input[name="date"]'); //our date input has the name "date"
-                        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                        date_input.datepicker({
-                        format: 'yyyy-mm-dd',
-                        container: container,
-                        todayHighlight: true,
-                        autoclose: true,
-                        })
-                      })
-                      </script>
-
-                  </div>
-                  
                   
                     </div>
                   </div>
                   <div class="tile-footer">
-              <button class="btn btn-primary" type="submit">Enviar</button>
+              <button class="btn btn-primary" name="sub" type="submit" value="import">Submit</button>
             </div>
                 </form>
               </div>
@@ -247,54 +191,3 @@ height:70px;
 </html>
 
 
-<script>
-$(function() {
-
-/*var  availableTags = [
-
-"ajskkdp",
-"iiisosoa",
-"ooiismsm",
-"aassdddd",
-"ooedmmmd",
-"iisoosoos"
-];
-
-$( "#cabo" ).autocomplete({
-  source: availableTags
-
-  });
-*/
-
-$.getJSON("listar_cabos.php", function(data){
-//console.log(data);
-var retorno = [];
-
-
-$(data).each( function (key, value){
-
- // console.log(value.cabo);
-
- retorno.push(value.cabo);
-
-
-});
-$("#cabo").autocomplete({
-  source: retorno ,
-
- 
-
-  });
-
-
-
-
-  });
-});
-
-
-
-
-
-
-</script>

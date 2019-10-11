@@ -14,6 +14,46 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+
+  <script type="text/javascript">
+function fnExcelReport() {
+    var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+    tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
+
+    tab_text = tab_text + '<x:Name>Relatorio Caixa Fechada</x:Name>';
+
+    tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+    tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+
+    tab_text = tab_text + "<table border='1px'>";
+    tab_text = tab_text + $('#myTable').html();
+    tab_text = tab_text + '</table></body></html>';
+
+    var data_type = 'data:application/vnd.ms-excel';
+    
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+    
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+        if (window.navigator.msSaveBlob) {
+            var blob = new Blob([tab_text], {
+                type: "application/csv;charset=utf-8;"
+            });
+            navigator.msSaveBlob(blob, 'Test file.xls');
+        }
+    } else {
+        $('#test').attr('href', data_type + ', ' + encodeURIComponent(tab_text));
+        $('#test').attr('download', 'relatorio.xls');
+    }
+
+}
+
+
+
+
+
+</script> 
     <link rel="icon" href="img/serede.png">
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
@@ -27,7 +67,7 @@
     <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
     <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-    <title>BA97</title>
+    <title>RETESTE</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,13 +112,13 @@
             <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
             <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
           </ul>
-        
+          <li><a class="app-menu__item " href="#" id="test" onClick="javascript:fnExcelReport();">  <i class="app-menu__icon fa fa-table"></i> </i><span class="app-menu__label"> Gerar Excel </span> </a> </li>
     </aside>
     <main class="app-content">
       <div class="app-title">
         <div>
           <h1><i class="fa fa-th-list"></i> Tabela Reteste</h1>
-          <p>Pendência 35 dias </p>
+         
         </div>
         <ul class="app-breadcrumb breadcrumb side">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -90,19 +130,20 @@
         <div class="col-md-12">
           <div class="tile">
             <div class="table-responsive">
-              <table class="table table-hover table-bordered" >
+              <table class="table table-hover table-bordered" id="myTable" >
                 <thead>
                   <tr>
-                    <th>Fix</th>
+                    
                     <th>Cliente</th>
-                    <th>Estação</th>
-                    <th>Localidade</th>
+                    
                     <th>Ccto</th>
+                    <th>Localidade</th>
+                    <th>Estação</th>
                     <th>Ofensor</th>
                     <th>Téc</th>
                     <th>Ga</th>
                     <th>Data Cadastro</th>
-                    <th>Data último reteste</th>
+                    <th>Status</th>
                    
                   </tr>
                 </thead>
@@ -115,24 +156,20 @@ $data_atual = date("Y-m-d");
 
 
 
-if ($_SESSION['acesso'] == 'GA')
-{
-
-  
-
-  $sql = mysql_query ("select * from cliente where  localidade  = '".$_SESSION['localidade']."'    data_final >= '$data_atual' and cliente.data_ult_ret < '$data_atual' and data_rep < '$data_atual' and data_ult_ret !='$data_atual' " );
 
 
-}
+  $sql = mysql_query ("SELECT * from cliente where   data_final >= '$data_atual'  and data_rep != '$data_atual' order by nome_tec" );
 
 
-else
-{
+
+
+
+
+
+
     
     
 
-    $sql = mysql_query ("select * from cliente where  localidade  = '".$_SESSION['localidade']."'  and   data_final >= '$data_atual' and cliente.data_ult_ret < '$data_atual' and data_rep < '$data_atual' and data_ult_ret !='$data_atual' order by nome_tec" );
-}
 
 
  
@@ -144,7 +181,16 @@ $row = mysql_num_rows($sql);
       
         {
 
-          
+               if($dado ['data_ult_ret'] == $data_atual ) 
+               {
+
+                      $status = 'REALIZADO';
+
+               }
+               else 
+               {
+                       $status = 'PENDENTE';
+               }
      
       
 
@@ -155,25 +201,16 @@ $row = mysql_num_rows($sql);
                             
 
                   <tr>
-                  <?php if($_SESSION['acesso'] != 'GA'){ ?>
-                    <td><a href='baixa_ped.php?protocolo=<?php echo $dado ["protocolo"] ?>' ><?php echo $dado ["protocolo"];  ?></a></td>
-                  <?php }else {?>
-
                   
-                    <td><?php echo $dado ["protocolo"];  ?></td>
-
-                    <?php } ?>
                     <td><?php echo $dado ["cliente"];  ?></td>
-                    <td><?php echo $dado ["estacao"];  ?></td>
-                    <td><?php echo $dado ["localidade"];  ?></td>
                     <td><?php echo $dado ["ccto"];  ?></td>
+                    <td><?php echo $dado ["localidade"];  ?></td>
+                    <td><?php echo $dado ["estacao"];  ?></td>
                     <td><?php echo $dado ["area"];  ?></td>
                     <td><?php echo current( str_word_count( $dado ["nome_tec"] , 2 ) );  ?></td>
                     <td><?php echo $dado ["nome_ga"];  ?></td>
                     <td><?php echo $dado ["data_rep"];  ?></td>
-                    <td><?php echo $dado ["data_ult_ret"];  ?></td>
-
-                    
+                    <td><?php echo $status;  ?></td>
 
                     
                   </tr>

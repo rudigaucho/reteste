@@ -77,8 +77,8 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-th-list"></i> Tabela BA97</h1>
-          <p>Pendência 35 dias </p>
+          <h1><i class="fa fa-th-list"></i> Tabela Reteste</h1>
+         
         </div>
         <ul class="app-breadcrumb breadcrumb side">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -97,6 +97,9 @@
                     <th>Cliente</th>
                     
                     <th>Ccto</th>
+                    <th>Localidade</th>
+                    <th>Estação</th>
+                    <th>Ofensor</th>
                     <th>Téc</th>
                     <th>Ga</th>
                     <th>Data Cadastro</th>
@@ -106,15 +109,18 @@
                 </thead>
 
 <?php
+date_default_timezone_set('America/Sao_Paulo');
 
 $data_atual = date("Y-m-d");
 
-$ga = $_GET['ga'];
+$localidade = $_GET['localidade'];
 
 
 
-  $sql = mysql_query ("SELECT * from cliente where nome_ga =  '$ga' and  data_final >= '$data_atual' and data_ult_ret 
-  != '$data_atual'  and data_rep != '$data_atual'    order by nome_tec" );
+  $sql = mysql_query ("SELECT * from cliente where localidade = '$localidade'  and  data_final >= '$data_atual' and data_ult_ret 
+  != '$data_atual'  and data_rep != '$data_atual'order by nome_tec" );
+
+
 
 
 
@@ -149,7 +155,10 @@ $row = mysql_num_rows($sql);
                   
                     <td><?php echo $dado ["cliente"];  ?></td>
                     <td><?php echo $dado ["ccto"];  ?></td>
-                    <td><?php echo $dado ["nome_tec"];  ?></td>
+                    <td><?php echo $dado ["localidade"];  ?></td>
+                    <td><?php echo $dado ["estacao"];  ?></td>
+                    <td><?php echo $dado ["area"];  ?></td>
+                    <td><?php echo current( str_word_count( $dado ["nome_tec"] , 2 ) );  ?></td>
                     <td><?php echo $dado ["nome_ga"];  ?></td>
                     <td><?php echo $dado ["data_rep"];  ?></td>
                     <td>PENDENTE</td>

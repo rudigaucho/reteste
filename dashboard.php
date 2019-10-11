@@ -80,8 +80,8 @@
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tabelas</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
            
-          <?php if($_SESSION['acesso'] != 'GA'){ ?>
-            <li><a class="treeview-item" href="cadastro.php"><i class="icon fa fa-circle-o"></i> Cadastro</a></li>
+          <?php if($_SESSION['acesso'] == 'ADM'){ ?>
+            <li><a class="treeview-item" href="import2.php"><i class="icon fa fa-circle-o"></i> Upload base</a></li>
             <?php }?>
             <li><a class="treeview-item" href="table-pendencias.php"><i class="icon fa fa-circle-o"></i> Pendência</a></li>
             <li><a class="treeview-item" href="pesq_per.php"><i class="icon fa fa-circle-o"></i> Pesquisa</a></li>
@@ -147,9 +147,15 @@
 
           <?php
 
+
+date_default_timezone_set('America/Sao_Paulo');
+
+
+
 $data_atual = date("Y-m-d");
 
-$sql = mysql_query ("SELECT ga.uf,ga.nome,(SELECT count(*) from cliente where ga.id = cliente.id_ga and  data_final >= '$data_atual' and data_rep !='$data_atual' ) as total, (SELECT count(*) from cliente where ga.id = cliente.id_ga and  data_final >= '$data_atual' and data_ult_ret = '$data_atual'  and data_rep !='$data_atual' ) as Realizados, (SELECT count(*) from cliente where ga.id = cliente.id_ga and  data_final >= '$data_atual' and data_ult_ret 
+
+$sql = mysql_query ("SELECT ga.uf,ga.nome,ga.localidade,(SELECT count(*) from cliente where ga.localidade = cliente.localidade and  data_final >= '$data_atual' and data_rep !='$data_atual' ) as total, (SELECT count(*) from cliente where ga.localidade = cliente.localidade and  data_final >= '$data_atual' and data_ult_ret = '$data_atual'  and data_rep !='$data_atual' ) as Realizados, (SELECT count(*) from cliente where ga.localidade = cliente.localidade  and  data_final >= '$data_atual' and data_ult_ret 
 != '$data_atual'  and data_rep !='$data_atual' ) as pendente from cliente JOIN ga
 on ga.protocolo = cliente.protocolo order by ga.uf,ga.nome" );
 
@@ -214,6 +220,7 @@ if ($iphone || $ipad || $android || $palmpre || $ipod || $berry || $symbian || $
   <thead>
     <tr>
       <th scope="col" class="table-dark">Ga</th>
+      <th scope="col" class="table-dark">Localidade</th>
       <th scope="col" class="table-dark">Total</th>
       <th scope="col"class="table-dark" >Realizado</th>
       <th scope="col" class="table-dark">Pendente</th>
@@ -227,9 +234,10 @@ if ($iphone || $ipad || $android || $palmpre || $ipod || $berry || $symbian || $
     $dado2 = mysql_fetch_assoc($sql2); ?>
     <tr >
       <th > <?php echo $dado ["nome"];  ?> </th>
+      <th > <?php echo $dado ["localidade"];  ?> </th>
       <td><?php echo $dado ["total"];  ?></td>
       <td><?php echo $dado ["Realizados"];  ?></td>
-      <td><a style="color:black;" href="pesq_contagem.php?ga=<?php echo $dado ["nome"];  ?>"><?php echo $dado ["pendente"]; ?></span></a></td>
+      <td><a style="color:black;" href="pesq_contagem.php?localidade=<?php echo $dado ["localidade"];  ?>"><?php echo $dado ["pendente"]; ?></span></a></td>
       <?php if($porcentagem >= 0.0 && $porcentagem <= 49.9) { ?>
       <td><span class="badge badge-danger" style="font-size:12px;" ><?php echo $porcentagem; ?></span></td>  
       
@@ -247,12 +255,13 @@ if ($iphone || $ipad || $android || $palmpre || $ipod || $berry || $symbian || $
   <?php  }}  ?> 
   
   <td class="table-dark" >TOTAL</td>
-  <td  class="table-dark"><?php echo $tot_ok;  ?></td>
+  <td  class="table-dark"></td>
+  <td class="table-dark"><a  style="color:white;" href="pesq_contagem_total.php"> <?php echo $tot_ok;  ?> </span></a></td>
   <td class="table-dark"><?php echo $tot_realizado;  ?></td>
   <td class="table-dark" ><?php echo $tot_pendente;  ?></td>
   <?php  $porcentagem2 = obterPercentual($tot_ok, $tot_realizado);   ?>
   <td class="table-dark"><?php echo $porcentagem2  ?></td>
-</table><span >*Versão para <?php echo $dispositivo;  ?></span> <span style="float:right;font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">Desenvolvimento  Rudinei Rossales  <a  href="https://www.linkedin.com/in/rudineigti"  target="_blank"><img src="img/in.png" alt="Smiley face" height="20" width="25"></a></span>
+</table><span >*Versão para <?php echo $dispositivo;   ?><?php echo $data_atual;   ?></span> <span style="float:right;font-family:georgia,garamond,serif;font-size:16px;font-style:italic;">Desenvolvimento  Rudinei Rossales  <a  href="https://www.linkedin.com/in/rudineigti"  target="_blank"><img src="img/in.png" alt="Smiley face" height="20" width="25"></a></span>
           </div>
           
         </div>

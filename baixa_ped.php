@@ -28,6 +28,8 @@
             $nome_tec = $dado["nome_tec"];
             $nome_ga = $dado["nome_ga"];
             $data_rep = $dado["data_rep"];
+            $obs_unidade = $dado["obs_unidade"];
+            $area = $dado["area"];
          
             
 
@@ -152,13 +154,7 @@ height:70px;
         </li>
         
         
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Tables</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-           
-            <li><a class="treeview-item" href="table-data-table.php"><i class="icon fa fa-circle-o"></i> Pendências</a></li>
-            <li><a class="treeview-item" href="table-data-table.php"><i class="icon fa fa-circle-o"></i> Pesquisa</a></li>
-          </ul>
-        </li>
+        
     </aside>
     <main class="app-content">
       <div class="app-title">
@@ -200,6 +196,16 @@ height:70px;
                   <div class="form-group">
                     <label for="exampleInputEmail1">Data de cadastro</label>
                     <input class="form-control" readonly id="exampleInputEmail1" name="data_rep" value="<?php echo $data_rep;?>" type="text" aria-describedby="emailHelp" >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Área ofensora</label>
+                    <input class="form-control"  readonly value="<?php echo $area;?>"maxlength="45" id="exampleInputEmail1" type="text" name="contato" aria-describedby="emailHelp" >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleTextarea">Observação</label>
+                    <textarea class="form-control" readonly maxlength="2000" id="exampleTextarea" name="desc" rows="6"><?php echo $obs_unidade;?></textarea>
                   </div>
 
                   <div class="form-group">
@@ -248,54 +254,3 @@ height:70px;
       if(document.location.hostname == 'pratikborsadiya.in') {
           
 
-<script>
-$(function() {
-
-/*var  availableTags = [
-
-"ajskkdp",
-"iiisosoa",
-"ooiismsm",
-"aassdddd",
-"ooedmmmd",
-"iisoosoos"
-];
-
-$( "#cabo" ).autocomplete({
-  source: availableTags
-
-  });
-*/
-
-$.getJSON("listar_cabos.php", function(data){
-//console.log(data);
-var retorno = [];
-
-
-$(data).each( function (key, value){
-
- // console.log(value.cabo);
-
- retorno.push(value.cabo);
-
-
-});
-$("#cabo").autocomplete({
-  source: retorno ,
-
- 
-
-  });
-
-
-
-
-  });
-});
-
-
-
-
-
-
-</script>
