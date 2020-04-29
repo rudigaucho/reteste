@@ -210,12 +210,12 @@ height:70px;
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Contato</label>
-                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" type="text" name="contato" aria-describedby="emailHelp" >
+                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" required type="text" name="contato" aria-describedby="emailHelp" >
                   </div>
                   
                   <div class="form-group">
                     <label for="exampleTextarea">Descrição do reteste</label>
-                    <textarea class="form-control" maxlength="500" id="exampleTextarea" name="desc" rows="3"></textarea>
+                    <textarea class="form-control" maxlength="500" id="exampleTextarea" required name="desc" rows="3"></textarea>
                   </div>
 
 

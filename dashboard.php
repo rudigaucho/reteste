@@ -82,6 +82,7 @@
            
           <?php if($_SESSION['acesso'] == 'ADM'){ ?>
             <li><a class="treeview-item" href="import2.php"><i class="icon fa fa-circle-o"></i> Upload base</a></li>
+            <li><a class="treeview-item" href="atua.php"><i class="icon fa fa-circle-o"></i> Atualiza base</a></li>
             <?php }?>
             <li><a class="treeview-item" href="table-pendencias.php"><i class="icon fa fa-circle-o"></i> Pendência</a></li>
             <li><a class="treeview-item" href="pesq_per.php"><i class="icon fa fa-circle-o"></i> Pesquisa</a></li>
