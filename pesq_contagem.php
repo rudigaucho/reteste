@@ -94,8 +94,8 @@
                 <thead>
                   <tr>
                     
+                    <th>Fix</th>
                     <th>Cliente</th>
-                    
                     <th>Ccto</th>
                     <th>Localidade</th>
                     <th>Estação</th>
@@ -152,7 +152,7 @@ $row = mysql_num_rows($sql);
                             
 
                   <tr>
-                  
+                    <td><?php echo $dado ["protocolo"];  ?></td>
                     <td><?php echo $dado ["cliente"];  ?></td>
                     <td><?php echo $dado ["ccto"];  ?></td>
                     <td><?php echo $dado ["localidade"];  ?></td>

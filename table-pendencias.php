@@ -2,18 +2,24 @@
          include "conn.php"; 
       
          session_start();
+       
 
          if(!isset($_SESSION["login"]) &&  !isset($_SESSION["senha"])  )
             {
                  header("Location: index.html");
                   exit;
             }
+             
+            
+            
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+
     <link rel="icon" href="img/serede.png">
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
@@ -83,7 +89,7 @@
         <ul class="app-breadcrumb breadcrumb side">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
           <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active"><a href="#">Data Table</a></li>
+          <li class="breadcrumb-item active"><a href="#">Data Table.</a></li>
         </ul>
       </div>
       <div class="row">
@@ -115,12 +121,13 @@ $data_atual = date("Y-m-d");
 
 
 
+
 if ($_SESSION['acesso'] == 'GA')
 {
 
   
 
-  $sql = mysql_query ("select * from cliente where  localidade  = '".$_SESSION['localidade']."'    data_final >= '$data_atual' and cliente.data_ult_ret < '$data_atual' and data_rep < '$data_atual' and data_ult_ret !='$data_atual' " );
+  $sql = mysql_query ("select * from cliente where  localidade  = '".$_SESSION['localidade']."'   and data_final >= '$data_atual' and cliente.data_ult_ret < '$data_atual' and data_rep < '$data_atual' and data_ult_ret !='$data_atual' " );
 
 
 }
@@ -137,6 +144,7 @@ else
 
  
 $row = mysql_num_rows($sql);
+$hora = date('H:i:s');
 
     if (mysql_num_rows($sql) > 0)
     {
@@ -150,19 +158,20 @@ $row = mysql_num_rows($sql);
 
 ?>
                 <tbody>
-                     
+               
 
                             
 
                   <tr>
-                  <?php if($_SESSION['acesso'] != 'GA'){ ?>
+                  <?php if($_SESSION['acesso'] != 'GA'){  if ($hora > '17:00:00' ) {?>
+                  <td><?php echo $dado ["protocolo"];  ?></td> <?php } else  {?>
                     <td><a href='baixa_ped.php?protocolo=<?php echo $dado ["protocolo"] ?>' ><?php echo $dado ["protocolo"];  ?></a></td>
-                  <?php }else {?>
+                  <?php } } else { ?>
 
                   
                     <td><?php echo $dado ["protocolo"];  ?></td>
 
-                    <?php } ?>
+                    <?php }  ?>
                     <td><?php echo $dado ["cliente"];  ?></td>
                     <td><?php echo $dado ["estacao"];  ?></td>
                     <td><?php echo $dado ["localidade"];  ?></td>

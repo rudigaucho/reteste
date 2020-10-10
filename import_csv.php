@@ -44,7 +44,7 @@ function import($file)
 
       
       
-      $q = "insert into cliente (uf,nome_ga,nome_tec,localidade,protocolo,ccto,estacao,cliente,area,obs_unidade,data_rep,id_tec,data_final,data_ult_ret) values(". $value2 .")";
+      $q = "insert into cliente (uf,nome_ga,nome_tec,localidade,protocolo,ccto,estacao,cliente,area,obs_unidade,data_rep,id_tec,data_final) values(". $value2 .")";
 
       
 

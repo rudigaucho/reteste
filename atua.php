@@ -9,6 +9,9 @@
                  header("Location: index.html");
                   exit;
             }
+
+
+            
 ?>
 
 
@@ -16,6 +19,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+  <script language="Javascript">
+function confirmacao(fix) {
+     var resposta = confirm("Deseja remover esse registro?");
+ 
+     if (resposta == true) {
+          window.location.href = "deletar.php?fix="+fix;
+     }
+}
+</script>
+
   <script language="javascript">
 function noenter() {
 var tecla = event.keyCode;
@@ -278,6 +292,7 @@ con_consulta.send(null);
                 <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Atualiza</a></li>
                 
                 
+                
                   <div class="dropdown-menu"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a>
                     <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Separated link</a>
                   </div>
@@ -365,7 +380,9 @@ con_consulta.send(null);
 <?php if (mysql_num_rows($sql) > 0)
 
 {?>
-<button class="btn btn-primary"  name="submit" type="submit">Enviar</button><?php } ?>
+<button class="btn btn-primary"  name="submit" type="submit">Enviar</button>
+<a href="javascript:func()"
+     onclick="confirmacao('<?php echo $fix;?>')" class="btn btn-danger btn-xs active" role="button" aria-pressed="true">Deletar</a> <?php } ?>
                       
  
     </form>

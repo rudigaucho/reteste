@@ -2,77 +2,7 @@
          include "conn.php"; 
       
          session_start();
-         date_default_timezone_set('America/Sao_Paulo');
-
-         if(!isset($_SESSION["login"]) &&  !isset($_SESSION["senha"])  )
-            {
-                 header("Location: index.html");
-                  exit;
-            }
-
-            $data = date('D');
-            $mes = date('M');
-            $dia = date('d');
-            $ano = date('Y');
-            
-            $semana = array(
-                'Sun' => 'Domingo',
-                'Mon' => 'Segunda-Feira',
-                'Tue' => 'Terca-Feira',
-                'Wed' => 'Quarta-Feira',
-                'Thu' => 'Quinta-Feira',
-                'Fri' => 'Sexta-Feira',
-                'Sat' => 'Sábado'
-            );
-            
-            $mes_extenso = array(
-                'Jan' => 'Janeiro',
-                'Feb' => 'Fevereiro',
-                'Mar' => 'Marco',
-                'Apr' => 'Abril',
-                'May' => 'Maio',
-                'Jun' => 'Junho',
-                'Jul' => 'Julho',
-                'Aug' => 'Agosto',
-                'Nov' => 'Novembro',
-                'Sep' => 'Setembro',
-                'Oct' => 'Outubro',
-                'Dec' => 'Dezembro'
-            );
-
-
-            $protocolo =$_GET['protocolo'];
-
-            $sql = mysql_query ("select * from cliente where protocolo = '$protocolo'" );
-
-            $row = mysql_num_rows($sql);
-
-
-    if (mysql_num_rows($sql) > 0)
-
-    {
-         while ($dado = mysql_fetch_assoc($sql))
-         {
-            
-            $cliente = $dado["cliente"];
-            $ccto = $dado["ccto"];
-            $nome_tec = $dado["nome_tec"];
-            $nome_ga = $dado["nome_ga"];
-            $data_rep = $dado["data_rep"];
-            $obs_unidade = $dado["obs_unidade"];
-            $area = $dado["area"];
-         
-            
-
-            
-
-
-
-            
-
-          }
-    
-    }
+ 
 
 
 ?>
@@ -190,7 +120,7 @@ height:70px;
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-edit"></i> Registro Reteste. <?php echo date('H:i:s') ?></h1>
+          <h1><i class="fa fa-edit"></i> Cadastro de colaboradores</h1>
           <p></p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -204,50 +134,72 @@ height:70px;
           <div class="tile">
             <div class="row">
               <div class="col-lg-6">
-                <form method="post" enctype="multipart/form-data" action="enviar_baixa.php">
+                <form method="post" action="env_acesso.php">
 
-                <input class="form-control" id="exampleInputEmail1" readonly name="protocolo"  value="<?php echo $protocolo;?>" type="hidden" aria-describedby="emailHelp" >
+                
+
                   <div class="form-group">
-                    <label for="exampleInputEmail1">ccto</label>
-                    <input class="form-control" id="exampleInputEmail1" readonly name="ccto"  value="<?php echo $ccto;?>" type="text" aria-describedby="emailHelp" >
+                    <label for="exampleInputEmail1">id</label>
+                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" required type="text" name="id" aria-describedby="emailHelp" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nome</label>
+                    <input class="form-control"  maxlength="85" id="exampleInputEmail1" required type="text" name="nome" aria-describedby="emailHelp" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Login</label>
+                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" required type="text" name="login" aria-describedby="emailHelp" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">senha</label>
+                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" required type="password" name="senha" aria-describedby="emailHelp" >
                   </div>
                   
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Cliente</label>
-                    <input class="form-control" readonly id="exampleInputEmail1" name="cliente" value="<?php echo $cliente;?>" type="text" aria-describedby="emailHelp" >
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Técnico</label>
-                    <input class="form-control" readonly id="exampleInputEmail1" name="tecnico"  value="<?php echo $nome_tec;?>" type="text" aria-describedby="emailHelp" >
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Ga</label>
-                    <input class="form-control" readonly id="exampleInputEmail1" name="ga" value="<?php echo $nome_ga;?>" type="text" aria-describedby="emailHelp" >
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Data de cadastro</label>
-                    <input class="form-control" readonly id="exampleInputEmail1" name="data_rep" value="<?php echo $data_rep;?>" type="text" aria-describedby="emailHelp" >
+                        <label for="email">NOME GA:</label>  
+                        <select class="form-control "  name="nome_gad">
+                            <option value="JUNIOMAR ALEX MOCHNACZ">  JUNIOMAR ALEX MOCHNACZ </option>
+                            <option value="CLEOMAR APARECIDO BISCHOFF">  CLEOMAR APARECIDO BISCHOFF </option>
+                            <option value="MARLON CRISTIAN">  MARLON CRISTIAN </option>
+                            <option value="ENIR RODRIGUES">  ENIR RODRIGUES </option>
+                            <option value="JOSE LUIS TRINDADE">  JOSE LUIS TRINDADE </option>
+                            <option value="ANDERSON FELIPE FERRI">  ANDERSON FELIPE FERRI </option>
+                            <option value="ALISSON SQUINZANI">  ALISSON SQUINZANI </option>
+                         
+
+
+                        </select>
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Área ofensora</label>
-                    <input class="form-control"  readonly value="<?php echo $area;?>"maxlength="45" id="exampleInputEmail1" type="text" name="contato" aria-describedby="emailHelp" >
+                        <label for="email">Acesso:</label>  
+                        <select class="form-control "  name="acesso">
+                            <option value="TEC">  Técnico </option>
+                            <option value="ADM">  Adm </option>
+                            <option value="GA">  GA </option>
+
+                        </select>
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleTextarea">Observação</label>
-                    <textarea class="form-control" readonly maxlength="2000" id="exampleTextarea" name="desc" rows="6"><?php echo $obs_unidade;?></textarea>
+                        <label for="email">Área:</label>  
+                        <select class="form-control "  name="area">
+                            <option value="Tecnico de dados">  Técnico de dados </option>
+                            <option value="Eletricista">  Eletricista </option>
+                            <option value="GA">  GA </option>
+                            </select>
                   </div>
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Contato</label>
-                    <input class="form-control"  maxlength="45" id="exampleInputEmail1" required type="text" name="contato" aria-describedby="emailHelp" >
-                  </div>
+
+                       
+
                   
-                  <div class="form-group">
-                    <label for="exampleTextarea">Descrição do reteste:</label>
-                    <textarea class="form-control" maxlength="500" id="exampleTextarea" required name="desc" rows="3"></textarea>
-                  </div>
+
+                 
+
+                  
+                  
+                  
 
 
                   
@@ -262,9 +214,9 @@ height:70px;
                     </div>
                   </div>
                   <div class="tile-footer"> 
-                  <?php if ($semana["$data"] == "Segunda-Feira" or $semana["$data"] == "Quarta-Feira" or $semana["$data"] == "Sexta-Feira" ){ ?>
-                    <button class="btn btn-primary" type="submit">Enviar</button> 
-                    <?php } else {}?>
+                  
+                    <button class="btn btn-primary" type="submit">Cadastrar</button> 
+                   
                
                   
             </div>
